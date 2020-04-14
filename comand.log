@@ -1,0 +1,25 @@
+{
+  galleryItems(userName:"",limit:10,offset:0){
+    count
+    GalleryItems{
+      url
+      _id
+    }
+  }
+}
+mutation{
+  removeGalleryItem(id:""){
+    url
+  }
+}
+
+
+
+
+'show date'
+new Date(item.date).toDateString()
+
+//reload app in device
+adb shell input keyevent 82
+//logs
+react-native log-ios
