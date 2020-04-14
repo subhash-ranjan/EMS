@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Image, Alert, Platform, TextInput, SafeAreaView, Dimensions } from 'react-native';
 import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons'
 import CustomFlatList from 'src/components/customFlatList'
 import { Common, Color } from 'src/styles/main'
 import { fetchEmployees, postEmployee, fetchDepartment } from 'src/actions/employee'
@@ -9,17 +9,7 @@ import SearchBar from 'src/components/searchBar'
 import ProgressBar from 'src/components/progressBar'
 import CustomIconButton from 'src/components/customIconButton'
 import { Divider, Text, Caption } from 'react-native-paper'
-
-const icns = [
-    "computer",
-    "wc",
-    "person",
-    "git-network",
-    "man",
-    "man",
-    "man",
-]
-
+const icns = ["computer", "wc", "person", "git-network", "man", "man", "man",]
 const WindowHeight = Dimensions.get('window').height
 const actionBarHeight = 80
 let listHeight = '65%'
@@ -49,8 +39,8 @@ class empList extends React.Component {
     }
     render() {
         return (
-            <SafeAreaView
-                style={styleThis.mainContent}>
+            <SafeAreaView style={styleThis.mainContent}>
+                <ProgressBar isLoading={this.props.isFetching} loaderText='' />
                 <SearchBar />
                 <Divider />
                 <View style={styleThis.actionBar}>
@@ -61,13 +51,13 @@ class empList extends React.Component {
                                     <View style={styleThis.actionContainer} key={String(item.id)}>
                                         <CustomIconButton
                                             name={icns[index]}
+                                            type='material'
                                             style={{
                                                 fontSize: 30,
                                                 color: this.state.departmentActive == item.id ? Color.gray800 : Color.gray500,
                                             }}
                                             onPress={() => this.onFetchEmployess(item.id)}
                                         />
-                                        {/* <Divider style={{ ...Common.divider, width: 30 }} /> */}
                                         <Caption style={{ fontSize: 8 }}>{item.name.toUpperCase()}</Caption>
                                     </View>
                                 )

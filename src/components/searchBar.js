@@ -40,6 +40,7 @@ class searchBar extends Component {
                     <View style={{ ...Common.flexRow, justifyContent: 'flex-end', paddingRight: 5 }} >
                         <CustomIconButton
                             name='search'
+                            type='material'
                             style={{ color: Color.indigo300, fontSize: 32 }}
                             size={32}
                             onPress={() => this.toggleSearchBar(true)}
@@ -57,6 +58,7 @@ class searchBar extends Component {
                         />
                         <CustomIconButton
                             name='cancel'
+                            type='material'
                             style={{ color: Color.primary, fontSize: 30 }}
                             size={30}
                             onPress={() => this.toggleSearchBar(false)}

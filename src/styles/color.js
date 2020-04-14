@@ -38,10 +38,12 @@ const Color = {
     yellow300: '#FFF176',
     yellow400: '#FFEE58',
     yellow500: '#FFEB3B',
+    yellow900: '#F57F17',
+    
 
     //amber
     amber: '#FFC107',
-    amber50:'#FFF8E1',
+    amber50: '#FFF8E1',
     amber100: '#FFECB3',
     amber200: '#FFE082',
     amber300: '#FFD54F',
@@ -55,7 +57,6 @@ const Color = {
     //orange
     orange: '#FF9800',
     orangeA100: '#FFD180',
-
     orange100: '#FFE0B2',
     orange200: '#FFCC80',
     orange300: '#FFB74D',
@@ -65,7 +66,6 @@ const Color = {
     orange700: '#F57C00',
     orange800: '#EF6C00',
     orange900: '#E65100',
-
     orangeA100: '#FFD180',
     orangeA200: '#FFAB40',
     orangeA400: '#FF9100',
@@ -82,14 +82,26 @@ const Color = {
     deepOrange700: '#E64A19',
     deepOrange800: '#D84315',
     deepOrange900: '#BF360C',
-
     deepOrangeA100: '#FF9E80',
     deepOrangeA200: '#FF6E40',
     deepOrangeA400: '#FF3D00',
     deepOrangeA700: '#DD2C00',
 
+    //red
+    red900: '#b71c1c',
+
+    //blue
+    blue200: '#90CAF9',
+    blue300: '#64B5F6',
+    blue400: '#42A5F5',
     blue500: '#2196F3',
     blue900: '#0D47A1',
+
+    //lightBlue
+    lightBlue300: '#4FC3F7',
+    lightBlue400: '#29B6F6',
+    lightBlue500: '#03A9F4',
+    lightBlueA100: '#80D8FF',
 
     //indigo
     indigo50: '#e8eaf6',
@@ -103,12 +115,7 @@ const Color = {
     indigo800: '#283593',
     indigo900: '#1a237e',
 
-    //lightBlue
-    lightBlue300: '#4FC3F7',
-    lightBlue400: '#29B6F6',
-    lightBlue500: '#03A9F4',
-    lightBlueA100: '#80D8FF',
-
+    //cyan
     cyan100: '#B2EBF2',
     cyan200: '#80DEEA',
     cyan300: '#4DD0E1',
@@ -119,15 +126,18 @@ const Color = {
     cyan800: '#00838F',
     cyan900: '#006064',
 
+    //teal
     teal100: '#B2DFDB',
     teal200: '#80CBC4',
     teal300: '#4DB6AC',
     teal400: '#26a69a',
     teal500: '#009688',
+    teal600: '#00897B',
     teal800: '#00695C',
 
     lightGreen300: '#AED581',
 
+    //green
     green200: '#A5D6A7',
     green300: '#81C784',
     green400: '#66BB6A',
