@@ -93,7 +93,7 @@ const styleThis = StyleSheet.create({
         justifyContent: 'center',
         width: DEVICE_WIDTH,
         height: 60,
-        //backgroundColor: Color.indigo50
+        //backgroundColor: Color.amber50
     },
     searchBar: {
         height: 40,

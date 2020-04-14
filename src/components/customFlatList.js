@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, FlatList, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, FlatList, TouchableHighlight, StyleSheet } from 'react-native'
 import { Common, Color } from 'src/styles/main'
 import Swipable from 'react-native-gesture-handler/Swipeable'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { Divider, Text, Caption } from 'react-native-paper'
 let _refList = []
 
 export default class customFlatList extends React.Component {
@@ -83,16 +84,8 @@ const ListItems = ({ item, type, isImage, isPress, isDetail, isDelete, isEdit, o
                         onEditPress={() => { onEditClick(item, type) }} />
             }>
             <View style={Common.FlatList.listItems}>
-                {isImage && <MaterialIcons name="account-circle" color={Color.amber200} size={35} />}
-                {/* { isEdit && <Icon name="ios-arrow-back" color={Color.lightgray} size={25} style={styleThis.listRowItemMenu} /> } */}
-                <View
-                    style={Common.FlatList.listItemsTouchable}
-                    onPress={() => { isPress ? onPress(item, type) : 'return false' }}>
-                    <View style={styleThis.listRow}>
-                        <Text style={styleThis.listRowItemText}>{item.name} </Text>
-                        {/* { (isDelete || isDetail) && <Icon name="ios-arrow-forward" color={Color.lightgray} size={25} style={styleThis.listRowItemMenu} /> } */}
-                    </View>
-                </View>
+                {isImage && <MaterialIcons name="account-circle" color={Color.amber200} size={35} style={{ position: 'absolute', left: 10 }} />}
+                <Text>{item.name}</Text>
             </View>
         </Swipable >
     )
@@ -139,7 +132,7 @@ const LeftActionsDetail = ({ progress, dragX, isEdit, onEditPress }) => {
         </View >
     )
 }
-const flatListItemSeparator = () => <View style={Common.FlatList.separator} />
+const flatListItemSeparator = () => <Divider />
 
 const flatListHeader = () => {
     return (

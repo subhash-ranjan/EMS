@@ -1,5 +1,7 @@
 import React from 'react'
-
+const ImgBgSqr1 = require('src/images/bg-1.png')
+const ImgBgSqr2 = require('src/images/bg-2.png')
+const ImgBgSqr3 = require('src/images/bg-3.png')
 export {
-    //CardImage1, CardImage2, CardImage3, CardImage4
+    ImgBgSqr1, ImgBgSqr2, ImgBgSqr3
 }

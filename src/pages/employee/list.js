@@ -52,6 +52,7 @@ class empList extends React.Component {
             <SafeAreaView
                 style={styleThis.mainContent}>
                 <SearchBar />
+                <Divider />
                 <View style={styleThis.actionBar}>
                     {
                         this.props.departments.map((item, index) => {
@@ -61,12 +62,12 @@ class empList extends React.Component {
                                         <CustomIconButton
                                             name={icns[index]}
                                             style={{
-                                                fontSize: 35,
-                                                color: this.state.departmentActive == item.id ? Color.orange400 : Color.amber400
+                                                fontSize: 30,
+                                                color: this.state.departmentActive == item.id ? Color.gray800 : Color.gray500,
                                             }}
                                             onPress={() => this.onFetchEmployess(item.id)}
                                         />
-                                        <Divider style={{ ...Common.divider, width: 30 }} />
+                                        {/* <Divider style={{ ...Common.divider, width: 30 }} /> */}
                                         <Caption style={{ fontSize: 8 }}>{item.name.toUpperCase()}</Caption>
                                     </View>
                                 )
@@ -249,7 +250,7 @@ const styleThis = StyleSheet.create({
     actionBar: {
         ...Common.flexRow,
         ...Common.alignCenter,
-        height: actionBarHeight + 20,
+        height: 80,
         width: '100%',
         backgroundColor: Color.gray200,
     },
@@ -269,7 +270,6 @@ const styleThis = StyleSheet.create({
     actionContainer: {
         flexDirection: 'column',
         ...Common.alignCenter,
-        paddingTop: 10,
     },
     rowActionsBox: {
         display: 'flex',

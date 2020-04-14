@@ -133,9 +133,8 @@ const FlatList = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: "center",
-        justifyContent: 'space-between',
-        paddingLeft: '5%',
-        height: 60
+        justifyContent: 'center',
+        height: 60,
     },
     listItemsTouchable: {
         display: 'flex',

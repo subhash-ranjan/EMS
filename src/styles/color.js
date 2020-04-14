@@ -41,6 +41,7 @@ const Color = {
 
     //amber
     amber: '#FFC107',
+    amber50:'#FFF8E1',
     amber100: '#FFECB3',
     amber200: '#FFE082',
     amber300: '#FFD54F',
