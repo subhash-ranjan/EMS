@@ -37,13 +37,15 @@ class home extends React.Component {
             <ItemBox
               toRedirect='Employee'
               navigation={this.props.navigation}
-              icon='ios-people'
+              icon='account-tie'
+              type='material_com'
               text='LIST OF EMPLOYEES'
             />
             <ItemBox
               toRedirect='TopList'
               navigation={this.props.navigation}
               icon='ios-medal'
+              type='ionicons'
               text='TOP PERFORMERS'
             />
           </View>
@@ -51,12 +53,15 @@ class home extends React.Component {
             <ItemBox
               toRedirect='Report'
               navigation={this.props.navigation}
-              icon='ios-stats' text='REPORTS'
+              icon='ios-stats'
+              type='ionicons'
+              text='REPORTS'
             />
             <ItemBox
               toRedirect='Report'
               navigation={this.props.navigation}
               icon='ios-trending-up'
+              type='ionicons'
               text='NET STRENGTH INCREASE'
             />
           </View>
@@ -64,13 +69,15 @@ class home extends React.Component {
             <ItemBox
               toRedirect='DepartmentList'
               navigation={this.props.navigation}
-              icon='ios-git-network'
+              icon='account-group'
+              type='material_com'
               text='LIST OF DEPARTMENTS'
             />
             <ItemBox
               toRedirect='DesignationList'
               navigation={this.props.navigation}
               icon='ios-man'
+              type='ionicons'
               text='LIST OF DESIGNATIONS' />
           </View>
         </ScrollView >
@@ -157,17 +164,16 @@ const styleThis = StyleSheet.create({
   }
 })
 
-
 const ItemBox = (props) => {
   return (
     <View style={{ ...styleThis.squareBox }}>
       <View style={styleThis.TopBox}>
-        <TouchableOpacity style={{ ...styleThis.roundMenu, backgroundColor: Color.bluegray100 }}
+        <TouchableOpacity style={{ ...styleThis.roundMenu, backgroundColor: Color.gray300 }}
           onPress={() => props.navigation.navigate(props.toRedirect)}>
           <CustomIconButton
             name={props.icon}
-            type='ionicons'
-            style={{ fontSize: 40, color: Color.amber600 }}
+            type={props.type}
+            style={{ fontSize: 35, color: Color.indigo300 }}
             onPress={() => props.navigation.navigate(props.toRedirect)}
           />
         </TouchableOpacity>

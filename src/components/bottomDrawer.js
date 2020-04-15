@@ -8,22 +8,11 @@ const screenWidth = Dimensions.get("window").width;
 let posY = 0
 let isChange = false
 
-export default class bottomDrawer extends Component {
+class bottomDrawer extends Component {
     constructor(props) {
         super(props)
         this.state = {
             animation: new Animated.Value(0),
-        }
-    }
-    componentDidUpdate() {
-        if (isChange != this.props.isDrawerInvoked) {
-            isChange = this.props.isDrawerInvoked
-            posY == 0 ? (posY = -450) : (posY = 0)
-            Animated.timing(this.state.animation, {
-                toValue: posY,
-                duration: 200,
-                useNativeDriver: true,
-            }).start()
         }
     }
     render() {
@@ -71,7 +60,19 @@ export default class bottomDrawer extends Component {
             </Animated.View>
         )
     }
+    componentDidUpdate = () => {
+        if (isChange != this.props.isDrawerInvoked) {
+            isChange = this.props.isDrawerInvoked
+            posY == 0 ? (posY = -450) : (posY = 0)
+            Animated.timing(this.state.animation, {
+                toValue: posY,
+                duration: 200,
+                useNativeDriver: true,
+            }).start()
+        }
+    }
 }
+export default bottomDrawer
 const styleThis = StyleSheet.create({
     popup: {
         height: 400,
@@ -79,7 +80,7 @@ const styleThis = StyleSheet.create({
         backgroundColor: 'white',
         position: 'absolute',
         left: 0,
-        zIndex: 1,
+        zIndex: 100,
         bottom: -450
     },
     popupClose: {

@@ -5,9 +5,10 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import HomeScreen from 'src/pages/home'
 import EmplyeeListScreen from 'src/pages/employee/list'
 import EmplyeeTopListScreen from 'src/pages/employee/topList'
+import BottomDrawerScreen from 'src/components/bottomDrawer'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { Color } from './styles/color'
 import CustomIconButton from 'src/components/customIconButton'
+import { Color } from './styles/color'
 
 console.disableYellowBox = true
 const Tab = createMaterialBottomTabNavigator()
@@ -17,9 +18,10 @@ const EmployeeStack = createStackNavigator()
 const App = () => {
     return (
         <NavigationContainer>
-            <RootStack.Navigator headerMode="none">
+            <RootStack.Navigator headerMode="none" mode="modal">
                 <RootStack.Screen name="Main" component={TabNavigator} />
                 <RootStack.Screen name="TopList" component={EmplyeeTopListScreen} options={{ headerShown: false }} />
+                {/* <RootStack.Screen name="ModalDrawer" mode="modal" headerMode="none" component={BottomDrawerScreen} options={{ headerShown: false }} /> */}
             </RootStack.Navigator>
         </NavigationContainer>
     )
@@ -29,7 +31,7 @@ export default App
 const TabNavigator = () => {
     return (
         <Tab.Navigator
-            barStyle={{ backgroundColor: Color.deepOrangeA700 }}
+            barStyle={{ backgroundColor: Color.bluegray900 }}
             activeColor={Color.white}
         >
             <Tab.Screen

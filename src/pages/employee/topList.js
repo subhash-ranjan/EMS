@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Platform, SafeAreaView, Dimensions } from 'react-native'
+import { Button, Text, Card, Caption, Divider } from 'react-native-paper'
 import { Common, Color } from 'src/styles/main'
 import { connect } from 'react-redux'
-import BottomDrawer from 'src/components/bottomDrawer'
+import Icon from 'react-native-vector-icons/Ionicons'
+import CustomIconButton from 'src/components/customIconButton'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CustomFlatList from 'src/components/customFlatList'
 import { fetchEmployees, fetchMaster } from 'src/actions/employee'
 import dateMonths from 'src/config/date'
 import ProgressBar from 'src/components/progressBar'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { Button, Text, Card, Caption } from 'react-native-paper'
-import CustomIconButton from 'src/components/customIconButton'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import ModalDrawer from 'src/components/modalDrawer'
 
 const FIL_BOX_WIDTH = 60
 const WindowHeight = Dimensions.get('window').height
-const actionBarHeight = 120
 let listHeight = '75%'
 if (Platform.OS === 'android') { listHeight = '75%' } else { listHeight = '80%' }
 const lstCount = [
@@ -36,10 +34,8 @@ class empTopList extends Component {
             filteredEmployees: [],
         }
         this.state = {
-            isDrawerInvoked: false,
             drawerMode: '',
             drawerData: [],
-            bgColor: 'transparent',
             yearText: 'year',
             yearId: 0,
             ratingText: 'rating',
@@ -50,6 +46,8 @@ class empTopList extends Component {
             listcountId: 0,
             dataList: [],
             years: dateMonths[0]['year'],
+
+            modalVisible: false,
         }
     }
     render() {
@@ -57,41 +55,44 @@ class empTopList extends Component {
             <React.Fragment>
                 <ProgressBar isLoading={this.props.isFetching} loaderText='' />
                 <SafeAreaView style={styleThis.main}>
-                    <View style={[styleThis.actionBar]}>
-                        <FilterButton
-                            label='YEAR'
-                            icon='clock-outline'//insert-invitation
-                            onPress={() => this.handleOpen('year')}
-                            text={this.state.yearText}
-                        />
-                        <FilterButton
-                            label='RATING'
-                            icon='star-outline'//'rate-review'
-                            onPress={() => this.handleOpen('rating')}
-                            text={this.state.ratingText}
-                        />
-                        <FilterButton
-                            label='DEPARTMENT'
-                            icon='account-group'
-                            onPress={() => this.handleOpen('department')}
-                            text={this.state.departmentText}
-                        />
-                        {/* <View style={styleThis.filterBox}>
+                    <View style={styleThis.actionBar}>
+                        <View style={{ ...Common.flexRow, ...Common.alignSpaceEven }}>
+                            <FilterButton
+                                label='YEAR'
+                                icon='clock-outline'
+                                onPress={() => this.handleOpen('year')}
+                                text={this.state.yearText}
+                            />
+                            <FilterButton
+                                label='RATING'
+                                icon='star-outline'
+                                onPress={() => this.handleOpen('rating')}
+                                text={this.state.ratingText}
+                            />
+                            <FilterButton
+                                label='DEPARTMENT'
+                                icon='account-group'
+                                onPress={() => this.handleOpen('department')}
+                                text={this.state.departmentText.toUpperCase()}
+                            />
+                            {/* <View style={styleThis.filterBox}>
                             <FilterButton
                                 onPress={() => this.handleOpen('listcount')}
                                 text={this.state.listcountText}
                             />
-                        </View> */}
-                        {/* <View style={styleThis.filterBox}>
-                            <TouchableOpacity
-                                title="apply"
-                                style={[styleThis.buttonSubmit]}
-                                onPress={() => this.applyFilters()}>
-                                <Text style={styleThis.txtButton}>apply</Text>
-                            </TouchableOpacity>
-                        </View> */}
+                            </View> */}
+                        </View>
+                        <View style={{ ...Common.flexRow, ...Common.alignCenter, padding: 5 }}>
+                            <Button
+                                mode='text'
+                                onPress={() => this.applyFilters()}
+                            >
+                                <Text style={{ color: Color.indigo400 }} > APPLY FILTER</Text>
+                            </Button>
+                        </View>
                     </View>
-                    <View style={[styleThis.listBar, { height: listHeight }]}>
+                    <Divider />
+                    <View style={{ height: listHeight }}>
                         {
                             this.props.isFetching == false &&
                             this.state.dataList.length == 0 &&
@@ -110,15 +111,18 @@ class empTopList extends Component {
                             </CustomFlatList>
                         </View>
                     </View>
-                    <BottomDrawer
-                        data={this.state.drawerData}
-                        name={'empadd'}
-                        handleOpen={() => this.handleOpen()}
-                        isDrawerInvoked={this.state.isDrawerInvoked}
-                        //onDetailClickAction={(item, module) => this.onPressDetail(item, module)}
-                        onPress={(item, module) => this.onItemSelection(item, module)}
-                    >
-                    </BottomDrawer>
+
+                    {
+                        this.state.modalVisible &&
+                        <ModalDrawer
+                            data={this.state.drawerData}
+                            name={'empadd'}
+                            visible={this.state.modalVisible}
+                            hideModal={() => { this.closeDrawer() }}
+                            onPress={(item, module) => this.onItemSelection(item, module)}
+                        />
+                    }
+
                 </SafeAreaView>
             </React.Fragment>
         )
@@ -174,7 +178,7 @@ class empTopList extends Component {
         })
     }
     handleOpen = (src) => {
-        lstSrc = []
+        let lstSrc = []
         switch (src) {
             case 'year':
                 lstSrc = this.state.years
@@ -188,19 +192,19 @@ class empTopList extends Component {
             case 'listcount':
                 lstSrc = lstCount
                 break
-            // case 'year':
-            // lstsrc = this.props.years
-            // break
             default: break
         }
         this.setState({
-            isDrawerInvoked: this.state.isDrawerInvoked ? false : true,
+            modalVisible: true,
             drawerMode: src,
-            bgColor: !this.state.isDrawerInvoked ? Color.gray300 : 'transparent',
             drawerData: lstSrc
         })
     }
-    onItemSelection(item, module) {
+    closeDrawer = async () => {
+        this.setState({ modalVisible: false })
+    }
+    onItemSelection = async (item, module) => {
+        await this.closeDrawer()
         switch (this.state.drawerMode) {
             case 'year':
                 this.setState({ yearId: item.id, yearText: item.name })
@@ -216,7 +220,6 @@ class empTopList extends Component {
                 break
             default: break
         }
-        this.handleOpen(this.state.drawerMode)
     }
     onPressDetail(item, module) {
         this.props.navigation.navigate('EmployeeDetail', {
@@ -267,72 +270,18 @@ const styleThis = StyleSheet.create({
         paddingBottom: 10
     },
     actionBar: {
-        ...Common.flexRow,
-        ...Common.alignSpaceEven,
-        height: actionBarHeight,
+        ...Common.flexColumn,
+        ...Common.alignCenter,
+        height: 120,
+        paddingTop: 10,
         width: '100%',
         backgroundColor: Color.gray200
     },
-    // filterBox: {
-    //     ...Common.flexColumn,
-    //     alignItems: 'center'
-    // },
-    listBar: {
-        //borderWidth: 3
-    },
-    buttonSelect: {
-        display: 'flex',
-        backgroundColor: Color.amber300,
-        ...Common.alignCenter,
-        height: 45,
-        width: 60,
-        padding: 1,
-        borderRadius: 15
-    },
-    rowActionTextBox: {
-        borderTopWidth: .5,
-        borderTopColor: Color.gray400,
-        paddingTop: '2%',
-        marginTop: '8%',
-        height: 20,
-        width: 60,
-        ...Common.alignCenter
-    },
-    txtFilterHeader: {
-        color: Color.gray600,
-        fontWeight: '200',
-        fontSize: 11,
-    },
-    txtButtonSelect: {
-        color: Color.gray700,
-        fontWeight: '600',
-        fontSize: 13,
-    },
-    buttonSubmit: {
-        ...Common.alignCenter,
-        height: 40,
-        width: 60,
-        backgroundColor: Color.amber800,
-        marginBottom: 25
-    },
-    txtButton: {
-        fontSize: 17,
-        fontWeight: '600',
-        color: Color.white,
-    },
-    loaderImage: {
-        height: 60,
-        width: 60,
-        padding: 0,
-        margin: 0
-    },
-
     actionCard: {
         ...Common.flexRow,
         ...Common.alignCenter,
-        height: 50,
+        height: 45,
     }
-
 })
 
 const FilterButton = (props) => {
@@ -350,7 +299,7 @@ const FilterButton = (props) => {
                     style={{ fontSize: 25, color: Color.gray700, padding: 5 }}
                 />
                 <Caption style={{
-                    fontSize: props.label == 'DEPARTMENT' ? 12 : 15,
+                    fontSize: props.label == 'DEPARTMENT' ? 10 : 15,
                 }}>
                     {props.text}
                 </Caption>

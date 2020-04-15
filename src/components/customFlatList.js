@@ -2,8 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity, FlatList, TouchableHighlight, StyleSheet } from 'react-native'
 import { Common, Color } from 'src/styles/main'
 import Swipable from 'react-native-gesture-handler/Swipeable'
-import Icon from 'react-native-vector-icons/Ionicons'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Divider, Text, Caption } from 'react-native-paper'
 let _refList = []
 
@@ -63,7 +62,6 @@ const ListItems = ({ item, type, isImage, isPress, isDetail, isDelete, isEdit, o
             onSwipeableLeftWillOpen={(ref) => swipeOpen(ref)}
             renderRightActions={
                 (progress, dragX, onDetailPress) =>
-
                     (isDelete || isDetail) &&
                     <RightActionsDetail
                         progress={progress}
@@ -75,7 +73,6 @@ const ListItems = ({ item, type, isImage, isPress, isDetail, isDelete, isEdit, o
             }
             renderLeftActions={
                 (progress, dragX, onDetailPress) =>
-
                     isEdit &&
                     <LeftActionsDetail
                         progress={progress}
@@ -84,8 +81,18 @@ const ListItems = ({ item, type, isImage, isPress, isDetail, isDelete, isEdit, o
                         onEditPress={() => { onEditClick(item, type) }} />
             }>
             <View style={Common.FlatList.listItems}>
-                {isImage && <MaterialIcons name="account-circle" color={Color.amber200} size={35} style={{ position: 'absolute', left: 10 }} />}
-                <Text>{item.name}</Text>
+
+                <TouchableHighlight
+                    style={{ ...Common.alignCenter, width: '100%', height: '100%', backgroundColor: Color.gray100 }}
+                    onPress={() => { isPress ? onPress(item, type) : 'return false' }}>
+                    <React.Fragment>
+                        {
+                            isImage &&
+                            <MaterialCommunityIcons name="account-circle" color={Color.indigo100} size={35} style={{ position: 'absolute', left: 10 }} />
+                        }
+                        <Text>{item.name}</Text>
+                    </React.Fragment>
+                </TouchableHighlight>
             </View>
         </Swipable >
     )
@@ -104,36 +111,31 @@ const RightActionsDetail = ({ progress, dragX, isDetail, isDelete, onDetailPress
     return (
         <View style={styleThis.actionView}>
             {isDetail &&
-                <TouchableOpacity style={[styleThis.actionButton, styleThis.amber300]} onPress={onDetailPress}>
-                    <Icon name="ios-menu" color={Color.white} size={25} />
-                    <Text style={styleThis.txtWhite10}>Details</Text>
+                <TouchableOpacity style={{ ...styleThis.actionButton, backgroundColor: Color.indigo200 }} onPress={onDetailPress}>
+                    <MaterialCommunityIcons name="account-details" color={Color.white} size={30} />
                 </TouchableOpacity>
             }
             {isDelete &&
-                <TouchableOpacity style={[styleThis.actionButton, styleThis.deepOrange300]} onPress={onDeletePress}>
-                    <Icon name="ios-trash" color={Color.white} size={25} />
-                    <Text style={styleThis.txtWhite10}>Delete</Text>
+                <TouchableOpacity style={{ ...styleThis.actionButton, backgroundColor: Color.indigo400 }} onPress={onDeletePress}>
+                    <MaterialCommunityIcons name="delete-circle" color={Color.white} size={30} />
                 </TouchableOpacity>
             }
         </View >
     )
 }
-
 const LeftActionsDetail = ({ progress, dragX, isEdit, onEditPress }) => {
     return (
         <View style={styleThis.actionView}>
             {
                 isEdit &&
-                <TouchableOpacity style={[styleThis.actionButton, styleThis.amber300]} onPress={onEditPress}>
-                    <Icon name="ios-create" color={Color.white} size={25} />
-                    <Text style={styleThis.txtWhite10}>Edit</Text>
+                <TouchableOpacity style={{ ...styleThis.actionButton, backgroundColor: Color.indigo400 }} onPress={onEditPress}>
+                    <MaterialCommunityIcons name="circle-edit-outline" color={Color.white} size={30} />
                 </TouchableOpacity>
             }
         </View >
     )
 }
 const flatListItemSeparator = () => <Divider />
-
 const flatListHeader = () => {
     return (
         <View style={Common.FlatList.FlatListHeader}>
@@ -141,7 +143,6 @@ const flatListHeader = () => {
         </View>
     )
 }
-
 const styleThis = StyleSheet.create({
     listRow: {
         ...Common.flexRow,
@@ -169,22 +170,6 @@ const styleThis = StyleSheet.create({
         width: 70,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    amber300: {
-        backgroundColor: Color.amber300
-    },
-    deepOrange300: {
-        backgroundColor: Color.deepOrange300
-    },
-    circle: {
-        width: 30,
-        height: 30,
-        borderRadius: 50,
-        ...Common.alignCenter,
-        borderColor: Color.amber400,
-        borderWidth: 1,
-        marginRight: 15,
-        backgroundColor: Color.amber100
     },
     txtWhite10: {
         color: Color.white,

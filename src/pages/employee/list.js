@@ -9,11 +9,11 @@ import SearchBar from 'src/components/searchBar'
 import ProgressBar from 'src/components/progressBar'
 import CustomIconButton from 'src/components/customIconButton'
 import { Divider, Text, Caption } from 'react-native-paper'
-const icns = ["computer", "wc", "person", "git-network", "man", "man", "man",]
+const icns = ["laptop-mac", "account-tie", "account-key", "git-network", "man", "man", "man",]
 const WindowHeight = Dimensions.get('window').height
-const actionBarHeight = 80
+const actionBarHeight = 70
 let listHeight = '65%'
-if (Platform.OS === 'android') { listHeight = '65%' } else { listHeight = '72%' }
+if (Platform.OS === 'android') { listHeight = '72%' } else { listHeight = '72%' }
 
 class empList extends React.Component {
     constructor(props) {
@@ -51,14 +51,11 @@ class empList extends React.Component {
                                     <View style={styleThis.actionContainer} key={String(item.id)}>
                                         <CustomIconButton
                                             name={icns[index]}
-                                            type='material'
-                                            style={{
-                                                fontSize: 30,
-                                                color: this.state.departmentActive == item.id ? Color.gray800 : Color.gray500,
-                                            }}
+                                            type='material_com'
+                                            style={{ fontSize: 30, color: this.state.departmentActive == item.id ? Color.gray800 : Color.gray500 }}
                                             onPress={() => this.onFetchEmployess(item.id)}
                                         />
-                                        <Caption style={{ fontSize: 8 }}>{item.name.toUpperCase()}</Caption>
+                                        <Caption style={{ fontSize: 7, color: this.state.departmentActive == item.id ? Color.gray800 : Color.gray500 }}>{item.name.toUpperCase()}</Caption>
                                     </View>
                                 )
                             }
@@ -81,14 +78,7 @@ class empList extends React.Component {
                         <Icon name='ios-search' color={Color.white} size={25} />
                     </TouchableOpacity>
                 </View> */}
-                <View style={[styleThis.listBar, { height: listHeight }]}>
-                    {
-                        this.props.isFetching &&
-                        <View style={Common.loaderConatiner}>
-                            {/* <MyLoader>
-                            </MyLoader> */}
-                        </View>
-                    }
+                <View style={{ ...styleThis.listBar, height: listHeight }}>
                     {
                         this.state.dataList.length > 0
                         &&
@@ -240,63 +230,13 @@ const styleThis = StyleSheet.create({
     actionBar: {
         ...Common.flexRow,
         ...Common.alignCenter,
-        height: 80,
-        width: '100%',
-        backgroundColor: Color.gray200,
-    },
-    searchBar: {
-        ...Common.flexRow,
-        ...Common.alignCenter,
-        width: '100%',
         height: actionBarHeight,
-        backgroundColor: Color.yellow200,
-        borderBottomWidth: 1,
-        borderBottomColor: Color.gray400,
+        width: '100%',
+        backgroundColor: Color.gray300,
     },
-    listBar: {
-        //borderWidth: 2
-    },
-
     actionContainer: {
-        flexDirection: 'column',
+        ...Common.flexColumn,
         ...Common.alignCenter,
+        paddingHorizontal: 6
     },
-    rowActionsBox: {
-        display: 'flex',
-        margin: '3%',
-        width: 50,
-        height: 50,
-        borderRadius: 50,
-        ...Common.alignCenter,
-        backgroundColor: Color.amber300,
-    },
-    loaderImage: {
-        height: 60,
-        width: 60,
-        padding: 0,
-        margin: 0
-    },
-    textboxWhite: {
-        height: 40,
-        width: '70%',
-        paddingLeft: 10,
-        fontSize: 16,
-        borderWidth: .5,
-        borderRadius: 8,
-        borderColor: Color.gray500,
-        color: Color.bluegray800
-    },
-    btnSearch: {
-        backgroundColor: Color.amber500,
-        ...Common.alignCenter,
-        width: '20%',
-        height: 40,
-        borderRadius: 8,
-        marginLeft: 2,
-    },
-    btnText: {
-        fontSize: 16,
-        fontWeight: '300',
-        color: Color.bluegray800
-    }
 })

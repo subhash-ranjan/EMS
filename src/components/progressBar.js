@@ -17,11 +17,11 @@ class progressBar extends Component {
         <Transition.Together>
             <Transition.In
                 type="slide-top"
-                durationMs={500}
+                durationMs={200}
                 interpolation="linear" />
             <Transition.Out
                 type="slide-top"
-                durationMs={500}
+                durationMs={200}
                 interpolation="linear" />
         </Transition.Together>
     )
@@ -34,7 +34,7 @@ class progressBar extends Component {
             >
                 {
                     this.props.isLoading &&
-                    <React.Fragment style={styleThis.container}>
+                    <React.Fragment>
                         <ProgressBar indeterminate animating color={Color.indigo800} style={styleThis.progressbar} />
                         {
                             this.props.loaderText !== '' &&
@@ -57,14 +57,14 @@ export default progressBar
 
 const styleThis = StyleSheet.create({
     transitionContainer: {
-        height:5
+        height: 5
     },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-start',
         width: DEVICE_WIDTH,
-        height:0
+        height: 0
     },
     progressbar: {
         width: DEVICE_WIDTH,
