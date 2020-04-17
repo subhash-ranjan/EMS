@@ -27,7 +27,7 @@ const Common = StyleSheet.create({
 
     txtError: {
         color: '#900',
-        fontSize: 10,
+        fontSize: 12,
     },
     txtSuccess: {
         color: 'green',

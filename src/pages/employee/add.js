@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, SafeAreaView } from 'react-native'
-import { Button, Text, TextInput, Subheading, Portal } from 'react-native-paper'
+import { Button, Text, TextInput, Subheading } from 'react-native-paper'
 import { connect } from 'react-redux'
 import { Common, Color } from 'src/styles/main'
 import { fetchDepartment, fetchDesignation, postEmployee } from 'src/actions/employee'

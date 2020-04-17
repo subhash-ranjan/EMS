@@ -99,8 +99,9 @@ const styleThis = StyleSheet.create({
     },
     searchBar: {
         height: 40,
-        width: DEVICE_WIDTH - 80,
+        width: DEVICE_WIDTH - 100,
         elevation: 0,
+        marginLeft: 30,
         color: Color.indigo200
     }
 })
