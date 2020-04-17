@@ -5,6 +5,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import HomeScreen from 'src/pages/home'
 import EmplyeeListScreen from 'src/pages/employee/list'
 import EmplyeeTopListScreen from 'src/pages/employee/topList'
+import EmplyeeAddScreen from 'src/pages/employee/add'
+import ReportsScreen from 'src/pages/reports'
 import BottomDrawerScreen from 'src/components/bottomDrawer'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import CustomIconButton from 'src/components/customIconButton'
@@ -22,6 +24,8 @@ const App = () => {
                 <RootStack.Screen name="Main" component={TabNavigator} />
                 <RootStack.Screen name="TopList" component={EmplyeeTopListScreen} options={{ headerShown: false }} />
                 {/* <RootStack.Screen name="ModalDrawer" mode="modal" headerMode="none" component={BottomDrawerScreen} options={{ headerShown: false }} /> */}
+                <EmployeeStack.Screen name="EmployeeAdd" component={EmplyeeAddScreen} options={{ headerShown: false }} />
+                <EmployeeStack.Screen name="Reports" component={ReportsScreen} options={{ headerShown: false }} />
             </RootStack.Navigator>
         </NavigationContainer>
     )
@@ -68,6 +72,7 @@ const EmployeeStackScreen = () => {
     return (
         <EmployeeStack.Navigator>
             <EmployeeStack.Screen name="Employee" component={EmplyeeListScreen} options={{ headerShown: false }} />
+            {/* <EmployeeStack.Screen name="EmployeeAdd" component={EmplyeeAddScreen} options={{ headerShown: false }} /> */}
         </EmployeeStack.Navigator>
     )
 }

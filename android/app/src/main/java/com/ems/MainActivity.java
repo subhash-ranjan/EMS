@@ -1,8 +1,5 @@
 package com.ems;
 
-// for react native file system
-import com.rnfs.RNFSPackage; 
-
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

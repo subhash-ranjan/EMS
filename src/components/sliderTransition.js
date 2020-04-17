@@ -59,15 +59,19 @@ export default class carousal extends React.Component {
             </Transitioning.View>
         )
     }
-
     componentDidMount = () => {
-        this.ref.current.animateNextTransition()
         this.intervalId = setInterval(() => {
             this.ref.current.animateNextTransition()
             this.setState({ index: this.state.index == 2 ? 0 : this.state.index + 1 })
         }, 4000)
+        this.ref.current.animateNextTransition()
     }
-    componentDidUpdate = () => {
+    componentWillUpdate = () => {
+        if (!this.intervalId)
+            this.intervalId = setInterval(() => {
+                this.ref.current.animateNextTransition()
+                this.setState({ index: this.state.index == 2 ? 0 : this.state.index + 1 })
+            }, 4000)
         this.ref.current.animateNextTransition()
     }
     componentWillUnmount = () => {

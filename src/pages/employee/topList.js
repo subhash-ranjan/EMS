@@ -53,7 +53,7 @@ class empTopList extends Component {
     render() {
         return (
             <React.Fragment>
-                <ProgressBar isLoading={this.props.isFetching} loaderText='' />
+                <ProgressBar isLoading={this.props.isFetching} isLoaderText={false} height={5}/>
                 <SafeAreaView style={styleThis.main}>
                     <View style={styleThis.actionBar}>
                         <View style={{ ...Common.flexRow, ...Common.alignSpaceEven }}>

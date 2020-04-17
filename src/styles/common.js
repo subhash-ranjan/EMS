@@ -3,23 +3,6 @@ import { Color } from './color'
 const DEVICE_WIDTH = Dimensions.get("window").width
 
 const Common = StyleSheet.create({
-    txtError: {
-        color: '#900',
-        fontSize: 15,
-    },
-    txtSuccess: {
-        color: 'green',
-        fontSize: 16,
-    },
-    txtButtom: {
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    txtLink: {
-        color: 'white',
-        fontSize: 16,
-        textDecorationLine: 'underline'
-    },
     flexRow: {
         display: 'flex',
         flexDirection: 'row',
@@ -40,6 +23,24 @@ const Common = StyleSheet.create({
     alignSpaceEven: {
         alignItems: 'center',
         justifyContent: 'space-evenly',
+    },
+
+    txtError: {
+        color: '#900',
+        fontSize: 10,
+    },
+    txtSuccess: {
+        color: 'green',
+        fontSize: 16,
+    },
+    txtButtom: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    txtLink: {
+        color: 'white',
+        fontSize: 16,
+        textDecorationLine: 'underline'
     },
     iconError: {
         position: 'absolute',
@@ -160,7 +161,6 @@ const FlatList = StyleSheet.create({
         justifyContent: 'center',
     },
 })
-
 
 Common.Scroll = Scroll
 Common.FlatList = FlatList

@@ -51,15 +51,16 @@ class home extends React.Component {
           </View>
           <View style={styleThis.conatiner}>
             <ItemBox
-              toRedirect='Report'
+              toRedirect='Reports'
               navigation={this.props.navigation}
               icon='ios-stats'
               type='ionicons'
               text='REPORTS'
             />
             <ItemBox
-              toRedirect='Report'
+              toRedirect='Reports'
               navigation={this.props.navigation}
+              params={{ item: 2 }}
               icon='ios-trending-up'
               type='ionicons'
               text='NET STRENGTH INCREASE'
@@ -169,19 +170,24 @@ const ItemBox = (props) => {
     <View style={{ ...styleThis.squareBox }}>
       <View style={styleThis.TopBox}>
         <TouchableOpacity style={{ ...styleThis.roundMenu, backgroundColor: Color.gray300 }}
-          onPress={() => props.navigation.navigate(props.toRedirect)}>
+        // onPress={() => props.navigation.navigate(props.toRedirect, {
+        //   item: 2
+        // })}
+        >
           <CustomIconButton
             name={props.icon}
             type={props.type}
             style={{ fontSize: 35, color: Color.indigo300 }}
-            onPress={() => props.navigation.navigate(props.toRedirect)}
+            onPress={
+              () => props.navigation.navigate(props.toRedirect, props.params)
+            }
           />
         </TouchableOpacity>
       </View>
       <View style={styleThis.BottomBox}>
         <Text style={styleThis.boxText}>{props.text}</Text>
       </View>
-    </View>
+    </View >
   )
 }
 

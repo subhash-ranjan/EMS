@@ -2,58 +2,44 @@ import React, { Component } from 'react'
 import { View, Modal, TouchableOpacity, ScrollView, Dimensions, StyleSheet } from 'react-native'
 import { Text, IconButton } from 'react-native-paper'
 import CustomFlatList from 'src/components/customFlatList'
+import CustomCalendar from 'src/components/calendar'
 import { Color, Common } from 'src/styles/main'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { Transition, Transitioning } from "react-native-reanimated"
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const { height, width } = Dimensions.get("window")
-const modalHeight = 350
+const modalHeight = 450
+const headerHeight = 60
 
 class bottomDrawer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            top: height
+            top: height,
+            selectedDate: ''
         }
-        this.ref = React.createRef()
     }
-    transition = (
-        <Transition.Together>
-            <Transition.In
-                type='slide-bottom'
-                durationMs={200}
-                interpolation='easeIn' />
-            <Transition.Out
-                type="fade"
-                durationMs={0}
-                interpolation='easeInOut' />
-        </Transition.Together>
-    )
     render() {
         return (
-            <Transitioning.View
-                ref={this.ref}
-                transition={this.transition}
-                style={styleThis.transitionContainer}
+            <Modal
+                transparent={true}
+                animationType={'slide'}
+                visible={this.props.visible}
+                onRequestClose={() => {
+                }}
             >
-                <Modal
-                    transparent={true}
-                    visible={this.props.visible}
-                    onRequestClose={() => {
-                    }}
-                >
-                    <View style={styleThis.mainContainer}>
-                        <View style={{ ...styleThis.modalView }}>
-                            <View style={{ ...styleThis.modalheader }}>
-                                <IconButton
-                                    icon='close-circle'
-                                    size={50}
-                                    style={{ top: -38, padding: 0, margin: 0 }}
-                                    onPress={() => this.props.hideModal()}>
-                                </IconButton>
-                            </View>
-                            <View style={{ ...styleThis.modalList }}>
+                <View style={styleThis.mainContainer}>
+                    <View style={{ ...styleThis.modalView }}>
+                        <View style={{ ...styleThis.modalheader }}>
+                            <IconButton
+                                icon='close-circle'
+                                size={50}
+                                color={Color.indigo300}
+                                style={{ padding: 0, margin: 0, color: Color.indigo300 }}
+                                onPress={() => this.props.hideModal()}>
+                            </IconButton>
+                        </View>
+                        <View style={{ ...styleThis.modalList }}>
+                            {
+                                this.props.mode === 'list' &&
                                 <CustomFlatList
                                     data={this.props.data}
                                     name={this.props.name}
@@ -65,16 +51,25 @@ class bottomDrawer extends Component {
                                     isEdit={false}
                                     onPress={(item, module) => this.props.onPress(item, module)}>
                                 </CustomFlatList>
-                            </View>
+                            }
+                            {
+                                this.props.mode === 'calendar' &&
+                                <CustomCalendar
+                                    onSelectFinal={(item) => this.props.onSelectFinal(item)}
+                                />
+                            }
                         </View>
                     </View>
-                </Modal>
-
-            </Transitioning.View>
+                </View>
+            </Modal>
         )
     }
     componentDidUpdate = () => {
         //this.ref.current.animateNextTransition()
+    }
+    handleTapDateSelect = (day) => {
+        const selectedDate = day.dateString
+        this.setState({ selectedDate })
     }
 }
 export default bottomDrawer
@@ -103,14 +98,15 @@ const styleThis = StyleSheet.create({
         elevation: 10
     },
     modalheader: {
-        height: 50,
+        height: headerHeight,
         width: width,
-        ...Common.flexColumn,
-        ...Common.alignStart,
-        //backgroundColor: Color.indigo100
+        ...Common.flexRow,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        backgroundColor: Color.gray100
     },
     modalList: {
-        height: modalHeight - 50,
+        height: modalHeight - headerHeight,
         paddingBottom: 30,
         width: width,
     },

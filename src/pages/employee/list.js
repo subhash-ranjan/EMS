@@ -40,7 +40,7 @@ class empList extends React.Component {
     render() {
         return (
             <SafeAreaView style={styleThis.mainContent}>
-                <ProgressBar isLoading={this.props.isFetching} loaderText='' />
+                <ProgressBar isLoading={this.props.isFetching} isLoaderText={false} height={5} />
                 <SearchBar />
                 <Divider />
                 <View style={styleThis.actionBar}>

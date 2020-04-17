@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Dimensions } from 'react-native'
 import { Common, Color } from 'src/styles/main'
-import { ProgressBar, Text } from 'react-native-paper'
+import { ProgressBar, Caption } from 'react-native-paper'
 import { Transition, Transitioning } from "react-native-reanimated"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -30,19 +30,22 @@ class progressBar extends Component {
             <Transitioning.View
                 ref={this.ref}
                 transition={this.transition}
-                style={styleThis.transitionContainer}
+                style={{
+                    ...styleThis.transitionContainer,
+                    height: this.props.height
+                }}
             >
                 {
                     this.props.isLoading &&
-                    <React.Fragment>
+                    <View style={styleThis.container}>
                         <ProgressBar indeterminate animating color={Color.indigo800} style={styleThis.progressbar} />
                         {
-                            this.props.loaderText !== '' &&
-                            <View>
-                                <Text style={{ margin: 8, color: this.props.isSuccess ? Color.green600 : Color.gray800 }}>{this.props.loaderText}</Text>
+                            this.props.isLoading && this.props.isLoaderText &&
+                            <View style={{ ...styleThis.textContainer }}>
+                                <Caption style={{ paddingVertical: 5 }}> Saving data..</Caption>
                             </View>
                         }
-                    </React.Fragment>
+                    </View >
                 }
             </Transitioning.View>
         )
@@ -57,16 +60,19 @@ export default progressBar
 
 const styleThis = StyleSheet.create({
     transitionContainer: {
-        height: 5
+        backgroundColor: Color.ingigo100
     },
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        ...Common.flexColumn,
+        ...Common.alignStart,
         width: DEVICE_WIDTH,
-        height: 0
     },
     progressbar: {
         width: DEVICE_WIDTH,
     },
+    textContainer: {
+        ...Common.flexColumn,
+        ...Common.alignCenter,
+        width: DEVICE_WIDTH,
+    }
 })

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, FlatList, TouchableHighlight, StyleSheet } from
 import { Common, Color } from 'src/styles/main'
 import Swipable from 'react-native-gesture-handler/Swipeable'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Divider, Text, Caption } from 'react-native-paper'
+import { Divider, Text, Caption, Button } from 'react-native-paper'
 let _refList = []
 
 export default class customFlatList extends React.Component {
@@ -81,18 +81,29 @@ const ListItems = ({ item, type, isImage, isPress, isDetail, isDelete, isEdit, o
                         onEditPress={() => { onEditClick(item, type) }} />
             }>
             <View style={Common.FlatList.listItems}>
-
-                <TouchableHighlight
-                    style={{ ...Common.alignCenter, width: '100%', height: '100%', backgroundColor: Color.gray100 }}
-                    onPress={() => { isPress ? onPress(item, type) : 'return false' }}>
-                    <React.Fragment>
-                        {
-                            isImage &&
-                            <MaterialCommunityIcons name="account-circle" color={Color.indigo100} size={35} style={{ position: 'absolute', left: 10 }} />
-                        }
-                        <Text>{item.name}</Text>
-                    </React.Fragment>
-                </TouchableHighlight>
+                {
+                    isPress &&
+                    <Button
+                        color={Color.indigo100}
+                        contentStyle={{ ...Common.alignCenter, width: '100%', height: '100%' }}
+                        onPress={() => { isPress ? onPress(item, type) : 'return false' }}>
+                        <React.Fragment>
+                            {isImage && <MaterialCommunityIcons name="account-circle" color={Color.indigo100} size={35} style={{ position: 'absolute', left: 10 }} />}
+                            <Text>{item.name}</Text>
+                        </React.Fragment>
+                    </Button>
+                }
+                {
+                    !isPress &&
+                    <View
+                        style={{ ...Common.alignCenter, width: '100%', height: '100%' }}
+                        onPress={() => { isPress ? onPress(item, type) : 'return false' }}>
+                        <React.Fragment>
+                            {isImage && <MaterialCommunityIcons name="account-circle" color={Color.indigo100} size={35} style={{ position: 'absolute', left: 10 }} />}
+                            <Text>{item.name}</Text>
+                        </React.Fragment>
+                    </View>
+                }
             </View>
         </Swipable >
     )
