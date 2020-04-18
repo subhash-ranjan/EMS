@@ -117,6 +117,7 @@ class empTopList extends Component {
                         <ModalDrawer
                             data={this.state.drawerData}
                             name={'empadd'}
+                            mode='list'
                             visible={this.state.modalVisible}
                             hideModal={() => { this.closeDrawer() }}
                             onPress={(item, module) => this.onItemSelection(item, module)}

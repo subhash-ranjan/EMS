@@ -70,7 +70,7 @@ export class addRating extends Component {
                                         !!this.state.yearsToUpdate &&
                                         this.state.yearsToUpdate.map((item, index) => {
                                             return (
-                                                <DataTable.Row style={{ height: 60 }}>
+                                                <DataTable.Row key={index} style={{ height: 60 }}>
                                                     <DataTable.Cell>{item.name}</DataTable.Cell>
                                                     <View style={{ ...Common.alignCenter, padding: 5 }}>
                                                         <TextInput
@@ -84,7 +84,7 @@ export class addRating extends Component {
                                                     <View style={{ ...Common.alignCenter, padding: 5 }}>
                                                         <TextInput
                                                             placeholder='salary'
-                                                            maxLength={5}
+                                                            maxLength={9}
                                                             style={{ height: '100%', width: 100 }}
                                                             value={this.state.rating[index].salary}
                                                             onChangeText={(text) => this.setInputText(text, index, 'salary')}
@@ -122,16 +122,16 @@ export class addRating extends Component {
         }
     }
     componentWillReceiveProps = (nextProps) => {
-        if (nextProps.actionType == 'POST' && nextProps.isCreateSuccess && nextProps.mode == 'RATING') {
+        if (nextProps.isCreateSuccess && nextProps.mode == 'RATING') {
             lstYearToUpdate.map((item, index) => {
                 arrRating[index].salary = ''
                 arrRating[index].ratingText = ''
             })
 
-            this.setState({ isSuccessShow: true })
+            this.setState({ isSuccessShow: true, rating: arrRating })
             setTimeout(() => {
                 this.setState({ isSuccessShow: false })
-            }, 800)
+            }, 1500)
         }
     }
     setInputText(text, index, type) {
@@ -147,12 +147,7 @@ export class addRating extends Component {
 
             arrRating[index].ratingText = text
         }
-        if (this.state.isFormInvalid) {
-            this.setState({ rating: arrRating, isFormInvalid: false })
-        }
-        else {
-            this.setState({ rating: arrRating })
-        }
+        this.setState({ rating: arrRating })
     }
     saveRating = () => {
         let _year = ''
@@ -160,7 +155,6 @@ export class addRating extends Component {
         let _salary = ''
         let loopLen = this.state.yearsToUpdate.length
         let isValid = true
-        console.log(this.state.yearsToUpdate)
         this.state.yearsToUpdate.map((item, index) => {
             if (arrRating[index].ratingText == 'rating' || arrRating[index].salary == '') {
                 isValid = false

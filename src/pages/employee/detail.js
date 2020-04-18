@@ -90,7 +90,7 @@ class empDetailNew extends Component {
                                             <Button
                                                 mode='text'
                                                 onPress={() => {
-                                                    this.props.navigation.navigate('EmployeeAddRatingS', {
+                                                    this.props.navigation.navigate('EmployeeAddRating', {
                                                         employeeId: this.state.employeeid,
                                                         yearsToUpdate: lstYearToUpdate
                                                     })
@@ -162,7 +162,7 @@ class empDetailNew extends Component {
 function mapStateToProps(state) {
     let resultRating = []
     let resultEmployee = []
-    if (state.employee.ratings.length > 0) {
+    if (!!state.employee.ratings && state.employee.ratings.length > 0) {
         resultEmployee = state.employee.ratings[0]['employee'][0]
         resultRating = state.employee.ratings[1]['rating']
     }
@@ -181,7 +181,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getEmployeeRating: (employeeId) => dispatch(fetchRatingAndSalary('', employeeId, 'fetchrating')),
-        postRatingAndSalary: (objRequest) => dispatch(postRatingAndSalary(objRequest, 0, 'insertrating')),
     }
 }
 export default connect(

@@ -178,28 +178,30 @@ class add extends React.Component {
         )
     }
     componentDidMount = () => {
-        // let employee = this.props.navigation.getParam('item', '')
-        // if (employee != null && employee.id > 0) {
-        //     this.setState({
-        //         designationText: employee.DESIGNATION,
-        //         designationId: employee.designation,
-        //         departmentText: employee.DEPARTMENT,
-        //         departmentId: employee.dept,
-        //         dojText: employee.doj,
-        //         dojId: 0,
-        //         name: employee.name,
-        //         email: employee.email,
-        //         mode: 'update',
-        //         id: employee.id
-        //     })
-        // } else {
-        //     this.setState({ mode: 'insert' })
-        // }
+        if (!!this.props.route.params) {
+            const employee = this.props.route.params.item
+
+            this.setState({
+                designationText: employee.DESIGNATION,
+                designationId: employee.designation,
+                departmentText: employee.DEPARTMENT,
+                departmentId: employee.dept,
+                dojText: employee.doj,
+                dojId: 0,
+                name: employee.name,
+                email: employee.email,
+                mode: 'update',
+                id: employee.id
+            })
+        } else {
+            this.setState({ mode: 'insert' })
+        }
         this.props.getDepartments()
         this.props.getDesignations()
     }
     componentWillReceiveProps = (nextProps) => {
-        if (nextProps.actionType == 'POST' && nextProps.isCreateSuccess && nextProps.mode == 'EMPLOYEE') {
+        //nextProps.actionType == 'POST' && 
+        if (nextProps.isCreateSuccess && nextProps.mode == 'EMPLOYEE') {
             this.setState({
                 designationText: 'designation',
                 designationId: 0,
@@ -216,7 +218,7 @@ class add extends React.Component {
 
             setTimeout(() => {
                 this.setState({ isSuccessShow: false })
-            }, 800)
+            }, 1500)
         }
         this.ref.current.animateNextTransition()
     }

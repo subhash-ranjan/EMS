@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 import CustomFlatList from 'src/components/customFlatList'
 import { Common, Color } from 'src/styles/main'
-import { fetchEmployees, postEmployee, fetchDepartment } from 'src/actions/employee'
-import SearchBar from 'src/components/searchBar'
+import { fetchEmployees, fetchDepartment } from 'src/actions/employee'
+import SearchBar from 'src/components/searchBarReanimated'
 import ProgressBar from 'src/components/progressBar'
 import CustomIconButton from 'src/components/customIconButton'
 import { Divider, Text, Caption } from 'react-native-paper'
@@ -40,12 +40,12 @@ class empList extends React.Component {
     render() {
         return (
             <SafeAreaView style={styleThis.mainContent}>
-                <ProgressBar isLoading={this.props.isFetching} isLoaderText={false} height={5} />
+                <ProgressBar isLoading={this.props.isFetching || this.props.isCreating} isLoaderText={false} height={5} />
                 <SearchBar />
                 <Divider />
                 <View style={styleThis.actionBar}>
                     {
-                        this.props.departments.map((item, index) => {
+                        !!this.props.departments && this.props.departments.map((item, index) => {
                             if (index < 5) {
                                 return (
                                     <View style={styleThis.actionContainer} key={String(item.id)}>
@@ -116,7 +116,11 @@ class empList extends React.Component {
         this.props.getDepartments()
         this.props.getEmployees()
     }
-    componentWillUnmount() {
+    componentDidUpdate() {
+        //&& nextProps.postType == 'delete'
+        if (this.props.actionType == 'POST' && this.props.isCreateSuccess && this.props.mode == 'EMPLOYEE') {
+            this.props.getEmployees()
+        }
     }
     componentWillReceiveProps(nextProps) {
         let lstEmployees = nextProps.employees
@@ -126,15 +130,6 @@ class empList extends React.Component {
                 dataList: list,
                 isNoData: list.length == 0 ? true : false
             })
-        }
-        if (nextProps.actionType == 'POST'
-            &&
-            nextProps.postType == 'delete'
-            &&
-            nextProps.isCreateSuccess
-            &&
-            nextProps.mode == 'EMPLOYEE') {
-            this.props.getEmployees()
         }
     }
     onFetchEmployess(dept) {
@@ -215,7 +210,6 @@ function mapDispatchToProps(dispatch) {
     return {
         getEmployees: () => dispatch(fetchEmployees('', 0, 'fetch')),
         getDepartments: () => dispatch(fetchDepartment('', 0, 'fetch')),
-        postEmployee: (objRequest, id) => dispatch(postEmployee(objRequest, id, 'delete'))
     }
 }
 export default connect(

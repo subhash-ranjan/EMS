@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Modal, TouchableOpacity, ScrollView, Dimensions, StyleSheet } from 'react-native'
+import { View, Modal, TouchableOpacity, ScrollView, Dimensions, StyleSheet, LayoutAnimation, Platform, UIManager } from 'react-native'
 import { Text, IconButton } from 'react-native-paper'
 import CustomFlatList from 'src/components/customFlatList'
 import CustomCalendar from 'src/components/calendar'
@@ -13,8 +13,11 @@ class bottomDrawer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            top: height,
+            height: 0,
             selectedDate: ''
+        }
+        if (Platform.OS === 'android') {
+            UIManager.setLayoutAnimationEnabledExperimental(true)
         }
     }
     render() {
@@ -27,13 +30,13 @@ class bottomDrawer extends Component {
                 }}
             >
                 <View style={styleThis.mainContainer}>
-                    <View style={{ ...styleThis.modalView }}>
+                    <View style={{ ...styleThis.modalView, height: this.state.height }}>
                         <View style={{ ...styleThis.modalheader }}>
                             <IconButton
                                 icon='close-circle'
                                 size={50}
-                                color={Color.indigo300}
-                                style={{ padding: 0, margin: 0, color: Color.indigo300 }}
+                                color={Color.gray800}
+                                style={{ padding: 0, margin: 0, color: Color.gray300 }}
                                 onPress={() => this.props.hideModal()}>
                             </IconButton>
                         </View>
@@ -64,8 +67,13 @@ class bottomDrawer extends Component {
             </Modal>
         )
     }
-    componentDidUpdate = () => {
-        //this.ref.current.animateNextTransition()
+    componentDidMount = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.create(
+            200,
+            LayoutAnimation.Types.linear,
+            LayoutAnimation.Properties.opacity
+        ))
+        this.setState({ height: modalHeight })
     }
     handleTapDateSelect = (day) => {
         const selectedDate = day.dateString
@@ -86,16 +94,16 @@ const styleThis = StyleSheet.create({
         ...Common.flexColumn,
         ...Common.alignStart,
         backgroundColor: Color.white,
-        height: modalHeight,
+        //height: modalHeight,
         top: height - modalHeight,
-        shadowColor: 'red',
+        shadowColor: 'black',
         shadowOffset: {
-            width: 0,
+            width: width,
             height: 2
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 10
+        shadowOpacity: 0.55,
+        shadowRadius: 5.84,
+        elevation: 20
     },
     modalheader: {
         height: headerHeight,
@@ -103,7 +111,7 @@ const styleThis = StyleSheet.create({
         ...Common.flexRow,
         alignItems: 'center',
         justifyContent: 'flex-end',
-        backgroundColor: Color.gray100
+        //backgroundColor: Color.gray100
     },
     modalList: {
         height: modalHeight - headerHeight,

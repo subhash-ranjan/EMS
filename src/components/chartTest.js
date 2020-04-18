@@ -3,6 +3,7 @@ import { View, Platform } from 'react-native'
 import { Text } from 'react-native-svg'
 import { BarChart, LineChart, Grid, ProgressCircle, XAxis, YAxis } from 'react-native-svg-charts'
 import * as scale from 'd3-scale'
+import { Caption } from 'react-native-paper'
 
 let XAxisTop = 200
 if (Platform.OS === 'android') { XAxisTop = 190 } else { XAxisTop = 260 }
@@ -79,13 +80,20 @@ export default class BarChartExample extends React.PureComponent {
                     <Labels />
 
 
-                    <XAxis
+                    {/* <XAxis
                         style={{ top: XAxisTop }}
                         data={dataColumn}
                         scale={scale.scaleBand}
                         formatLabel={(_, index) => dataColumn[index]}
                         labelStyle={{ color: 'black' }}
-                    />
+                    /> */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', top: XAxisTop }}>
+                        {
+                            dataColumn.map((value, index) => (
+                                <Caption style={{}}>{value}</Caption>
+                            ))
+                        }
+                    </View>
                 </BarChart>
 
 

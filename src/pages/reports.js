@@ -43,14 +43,13 @@ class reports extends Component {
         if (Platform.OS === 'android') {
             UIManager.setLayoutAnimationEnabledExperimental(true)
         }
-        this.myRef = React.createRef()
     }
     render() {
         return (
             <SafeAreaView style={[styleThis.main]}>
                 {
                     this.state.boxHeight == 100 &&
-                    <View style={{ ...styleThis.header, height: this.state.boxHeight == 100 ? 70 : 0 }}>
+                    <View style={{ ...styleThis.header, height: this.state.boxHeight == 100 ? 60 : 0 }}>
                         <Subheading>Reports</Subheading>
                     </View>
 

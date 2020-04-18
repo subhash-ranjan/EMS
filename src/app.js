@@ -2,17 +2,39 @@ import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import LandingScreen from 'src/pages/landing'
+import AccountScreen from 'src/pages/account'
 import HomeScreen from 'src/pages/home'
 import EmplyeeHomeScreen from 'src/pages/employee/index'
 import EmplyeeListScreen from 'src/pages/employee/list'
 import EmplyeeTopListScreen from 'src/pages/employee/topList'
 import EmplyeeAddScreen from 'src/pages/employee/add'
-import ReportsScreen from 'src/pages/reports'
 import EmployeeDetailScreen from 'src/pages/employee/detail'
 import EmployeeAddRatingScreen from 'src/pages/employee/addRating'
+import DepartmentListScreen from 'src/pages/department/list'
+import DepartmentAddScreen from 'src/pages/department/add'
+import DesignationListScreen from 'src/pages/designation/list'
+import DesignationAddScreen from 'src/pages/designation/add'
+import ReportsScreen from 'src/pages/reports'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import CustomIconButton from 'src/components/customIconButton'
 import { Color } from './styles/color'
+
+import * as firebase from "firebase/app"
+import "firebase/auth"
+var firebaseConfig = {
+    apiKey: "AIzaSyB_PKaFrnLxfAPwU19l7KE4LRLmJgM373Y",
+    authDomain: "elite-caster-236203.firebaseapp.com",
+    databaseURL: "https://elite-caster-236203.firebaseio.com",
+    projectId: "elite-caster-236203",
+    storageBucket: "",
+    messagingSenderId: "543643188403",
+    appId: "1:543643188403:web:900a010770bbdcdb5c04c6"
+}
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+}
+
 
 console.disableYellowBox = true
 const Tab = createMaterialBottomTabNavigator()
@@ -24,6 +46,7 @@ const App = () => {
     return (
         <NavigationContainer>
             <RootStack.Navigator headerMode="none" mode="modal">
+                <RootStack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
                 <RootStack.Screen name="Main" component={TabNavigator} />
             </RootStack.Navigator>
         </NavigationContainer>
@@ -35,27 +58,27 @@ const TabNavigator = () => {
     return (
         <Tab.Navigator
             barStyle={{ backgroundColor: Color.bluegray900 }}
-            activeColor={Color.white}
+            activeColor={Color.bluegray200}
         >
             <Tab.Screen
                 name="Home"
                 component={HomeStackScreen}
-                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="home-circle" color={Color.gray100} style={{ fontSize: 22 }} />) }}
+                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="home-circle" color={Color.bluegray300} style={{ fontSize: 22 }} />) }}
             />
             <Tab.Screen
                 name="Employee"
                 component={EmployeeStackScreen}
-                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-tie" color={Color.gray100} style={{ fontSize: 22 }} />) }}
+                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-tie" color={Color.bluegray400} style={{ fontSize: 22 }} />) }}
             />
             <Tab.Screen
                 name="Reports"
                 component={ReportsScreen}
-                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="chart-pie" color={Color.gray100} style={{ fontSize: 22 }} />) }}
+                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="chart-pie" color={Color.bluegray400} style={{ fontSize: 22 }} />) }}
             />
             <Tab.Screen
                 name="Account"
-                component={ReportsScreen}
-                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-circle" color={Color.gray100} style={{ fontSize: 22 }} />) }}
+                component={AccountScreen}
+                options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-circle" color={Color.bluegray400} style={{ fontSize: 22 }} />) }}
             />
         </Tab.Navigator>
     )
@@ -76,7 +99,11 @@ const EmployeeStackScreen = () => {
             <EmployeeStack.Screen name="EmployeeList" component={EmplyeeListScreen} options={({ navigation }) => option(navigation)} />
             <EmployeeStack.Screen name="EmployeeDetail" component={EmployeeDetailScreen} options={({ navigation }) => option(navigation)} />
             <EmployeeStack.Screen name="EmployeeAdd" component={EmplyeeAddScreen} options={({ navigation }) => option(navigation)} />
-            <EmployeeStack.Screen name="EmployeeAddRatingS" component={EmployeeAddRatingScreen} options={({ navigation }) => option(navigation)} />
+            <EmployeeStack.Screen name="EmployeeAddRating" component={EmployeeAddRatingScreen} options={({ navigation }) => option(navigation)} />
+            <EmployeeStack.Screen name="DepartmentList" component={DepartmentListScreen} options={({ navigation }) => option(navigation)} />
+            <EmployeeStack.Screen name="DesignationList" component={DesignationListScreen} options={({ navigation }) => option(navigation)} />
+            <EmployeeStack.Screen name="DepartmentAdd" component={DepartmentAddScreen} options={({ navigation }) => option(navigation)} />
+            <EmployeeStack.Screen name="DesignationAdd" component={DesignationAddScreen} options={({ navigation }) => option(navigation)} />
         </EmployeeStack.Navigator>
     )
 }
