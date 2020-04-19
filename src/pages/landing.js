@@ -40,7 +40,7 @@ export default class landing extends React.Component {
           </ImgGooSvg1>
         </View>
         <View style={[styleThis.vwSlider, { top: -50 }]}>
-          <Image source={logo1} style={{ height: 60, width: 100 }}></Image>
+          <Image source={logo1} style={{ height: 55, width: 90 }}></Image>
         </View>
         <View style={[styleThis.vwContent]}>
           <Animated.View style={[styleThis.loginBox, animatedStyle]}>

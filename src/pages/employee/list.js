@@ -41,7 +41,7 @@ class empList extends React.Component {
         return (
             <SafeAreaView style={styleThis.mainContent}>
                 <ProgressBar isLoading={this.props.isFetching || this.props.isCreating} isLoaderText={false} height={5} />
-                <SearchBar />
+                <SearchBar onChangeText={(text) => this.onSearch(text)} />
                 <Divider />
                 <View style={styleThis.actionBar}>
                     {
@@ -62,22 +62,6 @@ class empList extends React.Component {
                         })
                     }
                 </View>
-                {/* <View style={styleThis.searchBar}>
-                    <TextInput
-                        style={[styleThis.textboxWhite]}
-                        placeholder='name'
-                        maxLength={40}
-                        autoCorrect={false}
-                        value={this.state.searchText}
-                        onChangeText={(text) => this.onSearch(text)} />
-                    <TouchableOpacity
-                        style={[styleThis.btnSearch]}
-                        onPress={() => {
-                            this.onSearch(this.state.searchText)
-                        }}>
-                        <Icon name='ios-search' color={Color.white} size={25} />
-                    </TouchableOpacity>
-                </View> */}
                 <View style={{ ...styleThis.listBar, height: listHeight }}>
                     {
                         this.state.dataList.length > 0
@@ -174,18 +158,11 @@ class empList extends React.Component {
 
     }
     onSearch(text) {
-        let regName = /^[a-zA-Z]+$/ ///^[a-z]+$/
-        if (text != '' && !regName.test(text)) {
-            return false
-        } else {
-            this.setState({ searchText: text })
-        }
         let lstEmployees = this.props.employees.filter(e =>
             String(e.name).toLowerCase().includes(String(text).toLowerCase())
             &&
             e.dept == this.state.departmentActive
         )
-
         this.setState({
             dataList: lstEmployees,
             isNoData: lstEmployees.length == 0 ? true : false

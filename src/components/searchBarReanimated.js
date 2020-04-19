@@ -74,6 +74,7 @@ class searchBar extends Component {
         if (val != '' && !/^[a-zA-Z]+$/.test(val))
             return false
         this.setState({ searchText: val })
+        this.props.onChangeText(val)
     }
 }
 export default searchBar
