@@ -3,7 +3,6 @@ import { StyleSheet, View, Dimensions, LayoutAnimation, Platform, UIManager } fr
 import { Common, Color } from 'src/styles/main'
 import { Searchbar } from 'react-native-paper'
 import CustomIconButton from 'src/components/customIconButton'
-import { Rect } from 'react-native-svg'
 
 const DEVICE_WIDTH = Dimensions.get("window").width
 const boxHeight = 80
