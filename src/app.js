@@ -23,13 +23,13 @@ import { Color } from './styles/color'
 import * as firebase from "firebase/app"
 import "firebase/auth"
 var firebaseConfig = {
-    apiKey: "AIzaSyB_PKaFrnLxfAPwU19l7KE4LRLmJgM373Y",
-    authDomain: "elite-caster-236203.firebaseapp.com",
-    databaseURL: "https://elite-caster-236203.firebaseio.com",
-    projectId: "elite-caster-236203",
+    apiKey: "***",
+    authDomain: ""***",
+    databaseURL: ""***",
+    projectId: ""***",
     storageBucket: "",
-    messagingSenderId: "543643188403",
-    appId: "1:543643188403:web:900a010770bbdcdb5c04c6"
+    messagingSenderId: ""***",
+    appId: ""***"
 }
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
